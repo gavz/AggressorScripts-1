@@ -2,6 +2,18 @@
 
 Disclaimer: These scripts are to help you audit your machines or machines you're authorized to audit. Don't use these on anything you don't have the owner's explicit permission to test on. That's mean. Also illegal. 
 
+## bueller.cna
+Automate portscans to check which beacons have access to a specific host
+
+Usage:
+```
+1. Select all beacon(s) you want to check access from 
+2. Right click and select "Bueller? Anyone?"
+3. Enter target host and port
+4. Open "View" > "Script Console" to see output.
+ > Note: it may take a while for all beacons to call back depending on your sleep time. 
+```
+
 ## cdolla.cna
 Find targets where you're local admin and list users who logged in within the last 90 days.
 
@@ -19,6 +31,7 @@ Usage:
 Notes:
 * c is an alias for cdolla
 * if -users is specified, will also print users who logged in within last 90 days
+* The list of users will look like "UserName1 (31), Username2 (48)" where the numbers in parentheses are days since last login
 
 ## compromised_log.rpt
 This report generates an appendix with tables of all hosts where a beacon was spawned and all users that were compromised/added to the "Credentials" tab. 
@@ -69,6 +82,45 @@ credpocalypse_interval [time]	- 1m, 5m (default), 10m, 30m, 60m
 * Remove from watchlist
 * Change time interval that Credpocalypse checks watchlist
 * View the watchlist 
+
+## leave\_no\_trace.cna
+Track/clean up dropped files, because littering is bad. 
+
+Includes a tab to view all files uploaded through beacons during an engagement. 
+
+Usage:
+* View > "Leave No Trace". Click column to sort. 
+```
+(By default all items show as Status: ?. Click "Check for litter" to update.) 
+```
+* Right click items 
+```
+    > "Search and Destroy" tries to remove items from the chosen beacon
+    > "Check for litter" 
+        - Does an LS to look for the dest_file from the chosen beacon
+        - Updates left column of results with status (cleaned, NOT cleaned, ?)
+```
+
+Coming soon:
+* Additional options to specify directories/paths (in cases dest_file was the filename only)
+* Track bcp() calls in archives too instead of just bupload() 
+* Add interesting filenames/directories to compromised_log.rpt for easier reporting to blue team
+
+FAIR WARNING:
+* If you select a dest_file that has only the filename (not a full path as well) this will fail. 
+* I'm sorry - it's not my fault. It's all I could pull from the archives/upload event.
+
+## portscan_results.cna 
+See and sort results from portscan module in a new tab
+
+CREDIT:
+This script uses the awesome visualization/tab code made by @001SPARTaN (for @r3dqu1nn)
+As seen here: https://github.com/harleyQu1nn/AggressorScripts/blob/master/logvis.cna
+
+Usage:
+```
+View > "Port Scan Results". Click column to sort.
+```
 
 ## save_log.cna 
 Use to export command output, so you don't have to grep beacon logs for info. 
